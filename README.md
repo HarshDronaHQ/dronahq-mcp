@@ -1,4 +1,11 @@
+<p align="center"><img src="assets/logo.svg" alt="DronaHQ" width="64" height="64"></p>
+
 # DronaHQ MCP
+
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=dronahq&config=eyJ1cmwiOiJodHRwczovL3N0dWRpby5kcm9uYWhxLmNvbS9hcGkvdmliZS9tY3AifQ==)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_DronaHQ_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=dronahq&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A//studio.dronahq.com/api/vibe/mcp%22%7D)
+
+The buttons install the DronaHQ cloud server (`studio.dronahq.com`). If you're self-hosted, see [Quickstart](#quickstart) and use your own Studio host.
 
 Model Context Protocol (MCP) server that lets AI coding agents (Cursor, Claude, Claude Code, VS Code, Windsurf) build and ship internal tools on top of your existing infrastructure. Connector credentials never enter the agent's context, and the apps run inside your DronaHQ workspace.
 
@@ -111,7 +118,7 @@ Add the server URL. Clients that implement MCP authorization discover DronaHQ si
 
 ## What the agent can do
 
-Tool names are what `tools/list` returns. Parameters are on each tool's input schema. Owners and admins can use every connector in the workspace. Creators only see connectors granted to them or their group, and they cannot add connectors or run raw queries that change data.
+The server exposes 64 tools. Names are what `tools/list` returns, and parameters are on each tool's input schema. [docs/tools.md](docs/tools.md) lists every tool and marks which ones are read-only. Owners and admins can use every connector in the workspace. Creators only see connectors granted to them or their group, and they cannot add connectors or run raw queries that change data.
 
 ### Apps
 
@@ -144,6 +151,7 @@ The agent never receives connection strings. New connectors are added in Studio 
 | `vibe_run_db_write` | Run one statement that changes data, or a raw NoSQL action. Owners and admins. |
 | `vibe_list_subcats` | List saved queries and operations on a connector. |
 | `vibe_get_subcat` | Read one saved operation, including its variables. |
+| `vibe_get_subcat_input_schema` | Return the fields needed to save an operation on a connector. |
 | `vibe_create_subcat` | Save a database query. |
 | `vibe_create_http_read_subcat` | Save a GET or HEAD operation on an HTTP connector. |
 | `vibe_create_http_write_subcat` | Save a POST, PUT, PATCH, or DELETE operation on an HTTP connector. |
@@ -166,6 +174,7 @@ Access is catalogues, groups, and per-app permissions in the workspace. SSO is h
 | `vibe_add_catalogue_groups` | Add groups to a catalogue. |
 | `vibe_set_catalogue_groups` | Replace the groups on a catalogue. |
 | `vibe_list_groups` | List end-user groups. |
+| `vibe_check_users` | Check whether email addresses already exist and can be invited. Owners and admins. |
 | `vibe_create_group` | Create an end-user group. |
 | `vibe_add_user_to_group` | Invite a user or add them to groups. |
 | `vibe_set_access` | Make a published app link public or private. |
@@ -174,7 +183,13 @@ Access is catalogues, groups, and per-app permissions in the workspace. SSO is h
 
 ### Automations
 
-`automation_list`, `automation_create`, `automation_get`, `automation_add_tasks`, `automation_update_task`, `automation_validate`, `automation_test_run`, `automation_publish`, and `automation_set_active` create and publish automations in the same workspace. `automation_test_run` skips tasks that change data. `automation_test_run_write` includes them.
+Twenty `automation_*` tools create, edit, test, and publish automations in the same workspace: list, create, get, rename, duplicate, delete, set the trigger, add, update, move, and remove tasks, validate, test, publish, and turn on or off.
+
+`automation_test_run` and `automation_test_task` skip tasks that change data. `automation_test_run_write` and `automation_test_task_write` include them. The full list is in [docs/tools.md](docs/tools.md#automations).
+
+## Cursor rules
+
+[rules/dronahq-vibe.mdc](rules/dronahq-vibe.mdc) tells the agent how to use these tools well: never put secrets in source, read the schema before writing SQL, have app code call saved operations instead of raw SQL, and check in before publishing. Copy it into `.cursor/rules/` in your project.
 
 ## Security and governance
 
@@ -195,4 +210,20 @@ Once the client shows as connected:
 ## Further reading
 
 - [Getting started](https://docs.dronahq.com/building-dronahq-mcp/getting-started/)
-- Internal detail for this repo: [direct MCP endpoint](direct-mcp-server.md), [OAuth sign-in](vibe-mcp-oauth.md)
+- [Tool reference](docs/tools.md)
+- [Client config examples](examples/)
+
+## Support
+
+- Questions and bugs in these docs: [open an issue](https://github.com/dronahq/dronahq-mcp/issues).
+- Workspace or account help: inquiries@dronahq.com
+- Security reports: see [SECURITY.md](SECURITY.md).
+- [Privacy policy](https://www.dronahq.com/privacy/)
+
+## What's in this repository
+
+This repository holds documentation and client configuration. The server runs inside DronaHQ Studio, so there is no server code to build or install here.
+
+## License
+
+[MIT](LICENSE)
