@@ -68,11 +68,17 @@ Start the server from the file or from **MCP: List Servers**, then sign in when 
 
 ## Claude (web and desktop)
 
-1. Open **Settings → Connectors**.
-2. Click **Add custom connector** and paste the server URL.
-3. Click **Connect** and sign in.
+This works in claude.ai, Claude Desktop, and Cowork, on every plan. The Free plan allows one custom connector.
 
-On Team and Enterprise plans, an owner may need to add the connector for the organization first.
+1. Open [**Customize → Connectors**](https://claude.ai/customize/connectors).
+2. Select **Add**, then **Add custom connector**.
+3. Enter `DronaHQ` as the name and paste the server URL, then click **Continue**.
+4. Keep the authentication options marked **Detected**, then click **Add**.
+5. Click **Connect** and sign in with your DronaHQ account.
+
+**Team and Enterprise:** members can't add custom connectors themselves. An owner adds it once in [**Organization settings → Connectors**](https://claude.ai/admin-settings/connectors) (**Add → Custom → Web**, same name and URL). Members then find **DronaHQ** with the **Custom** label under **Customize → Connectors** and click **Connect**.
+
+Claude connects from Anthropic's cloud, not from your computer. A self-hosted Studio must be reachable from the internet, or exposed through an [MCP tunnel](https://claude.com/docs/connectors/mcp-tunnels/overview). Otherwise, use Claude Code or Claude Desktop with the [`mcp-remote` bridge](#any-other-client).
 
 ## Claude Code
 

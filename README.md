@@ -4,8 +4,9 @@
 
 [![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=dronahq&config=eyJ1cmwiOiJodHRwczovL3N0dWRpby5kcm9uYWhxLmNvbS9hcGkvdmliZS9tY3AifQ==)
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_DronaHQ_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=dronahq&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A//studio.dronahq.com/api/vibe/mcp%22%7D)
+[![Add to Claude](https://img.shields.io/badge/Claude-Add_DronaHQ_connector-D97757?style=flat-square&logo=claude&logoColor=white)](https://claude.ai/customize/connectors)
 
-The buttons install the DronaHQ cloud server (`studio.dronahq.com`). If you're self-hosted, see [Quickstart](#quickstart) and use your own Studio host.
+The Cursor and VS Code buttons install the DronaHQ cloud server (`studio.dronahq.com`) in one click. Claude has no install link yet, so **Add to Claude** opens your connectors page. There, choose **Add → Add custom connector**, name it `DronaHQ`, paste `https://studio.dronahq.com/api/vibe/mcp`, then click **Add** and **Connect** ([full steps](docs/clients.md#claude-web-and-desktop)). If you're self-hosted, see [Quickstart](#quickstart) and use your own Studio host.
 
 Model Context Protocol (MCP) server that lets AI agents and coding assistants (Cursor, Claude, ChatGPT, VS Code, Codex, Gemini CLI, and any other MCP client) build and ship internal tools on top of your existing infrastructure. Connector credentials never enter the agent's context, and the apps run inside your DronaHQ workspace.
 
